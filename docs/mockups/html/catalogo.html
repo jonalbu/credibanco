@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Créditos - Banco Amigo</title>
+  <meta name="description" content="Explora el portafolio completo de líneas de crédito de Banco Amigo: Vivienda, Consumo, Vehículo, Educación y Comercial con tasas competitivas." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Hoja de Estilos CSS3 Profesional -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==================== HEADER & BARRA DE NAVEGACIÓN ==================== -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar" aria-label="Navegación Principal">
+        <a href="index.html" class="brand-logo" id="catBrandLogo">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <span>Banco Amigo</span>
+        </a>
+
+        <!-- Enlaces de Navegación -->
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" id="navCatHome">Inicio</a></li>
+          <li><a href="catalogo.html" class="nav-link active" id="navCatCatalogo">Catálogo de Créditos</a></li>
+          <li><a href="simulador.html" class="nav-link" id="navCatSimulador">Simulador</a></li>
+          <li><a href="solicitar.html" class="nav-link" id="navCatSolicitar">Solicitud Digital</a></li>
+        </ul>
+
+        <!-- Acciones y Banca Virtual -->
+        <div class="nav-actions">
+          <button class="btn-banca-virtual btn-open-banca-virtual" id="btnCatHeaderBancaVirtual">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Banca Virtual</span>
+          </button>
+
+          <button class="btn-mobile-toggle" id="mobileMenuToggle" aria-label="Abrir menú de navegación">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Menú Desplegable Móvil -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="mobile-nav-link">Inicio</a>
+      <a href="catalogo.html" class="mobile-nav-link active">Catálogo de Créditos</a>
+      <a href="simulador.html" class="mobile-nav-link">Simulador</a>
+      <a href="solicitar.html" class="mobile-nav-link">Solicitud Digital</a>
+      <button class="btn btn-primary btn-open-banca-virtual" style="margin-top: 0.5rem; width: 100%;">Ingresar a Banca Virtual</button>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+  <main>
+    <div class="container">
+      
+      <!-- Encabezado de la página -->
+      <section style="padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--border-light);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="badge badge-primary" style="margin-bottom: 0.5rem;">Portafolio Institucional 2026</span>
+            <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem;">Catálogo de Líneas de Crédito</h1>
+            <p style="color: var(--text-muted); font-size: 1rem; max-width: 48rem;">
+              Encuentra la solución crediticia ideal para tus proyectos personales, familiares o empresariales con tasas fijas y trámites 100% digitales.
+            </p>
+          </div>
+          <a href="simulador.html" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+            Ir al Simulador en Vivo
+          </a>
+        </div>
+      </section>
+
+      <!-- Layout con Sidebar de Filtros y Catálogo -->
+      <div class="sim-page-layout">
+        
+        <!-- SIDEBAR: Búsqueda y Filtros -->
+        <aside class="filters-sidebar" aria-label="Filtros de Búsqueda de Créditos">
+          <div class="filters-header">
+            <h3 style="font-size: 1.125rem; font-weight: 700;">Filtros de Búsqueda</h3>
+            <button id="resetFiltersBtn" style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-decoration: underline;">
+              Limpiar Todo
+            </button>
+          </div>
+
+          <!-- Búsqueda por texto -->
+          <div>
+            <label for="searchProductInput" class="filter-group-title" style="display: block;">Buscar por palabra clave</label>
+            <input type="text" id="searchProductInput" class="input-field" placeholder="Ej: Vivienda, Moto, PYME, Estudio..." />
+          </div>
+
+          <!-- Filtro por Categorías -->
+          <div>
+            <div class="filter-group-title">Categoría de Crédito</div>
+            <div class="filter-options">
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-category" value="vivienda" />
+                <span>Vivienda / Hipotecario</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-category" value="consumo" />
+                <span>Libre Inversión / Consumo</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-category" value="vehiculo" />
+                <span>Vehículos (Carro / Moto)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-category" value="empresa" />
+                <span>Comercial y PYME</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-category" value="educativo" />
+                <span>Educación Superior</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filtro por Monto Máximo Requerido -->
+          <div>
+            <label for="filterMaxAmount" class="filter-group-title" style="display: block;">Monto Requerido (Máx COP)</label>
+            <input type="number" id="filterMaxAmount" class="input-field" placeholder="Ej: 50000000" step="5000000" />
+          </div>
+
+          <!-- Filtro por Plazo Máximo -->
+          <div>
+            <label for="filterMaxTerm" class="filter-group-title" style="display: block;">Plazo Máximo (Meses)</label>
+            <input type="number" id="filterMaxTerm" class="input-field" placeholder="Ej: 60" min="6" max="240" />
+          </div>
+
+          <!-- Acceso Directo a Solicitud -->
+          <div style="background-color: var(--primary-light); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--accent); margin-top: 0.5rem;">
+            <strong style="font-size: 0.875rem; color: var(--primary-dark); display: block; margin-bottom: 0.35rem;">¿Ya sabes qué crédito necesitas?</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Inicia directamente el formulario de radicación y recibe respuesta en menos de 24 horas.
+            </p>
+            <a href="solicitar.html" class="btn btn-primary btn-block" style="font-size: 0.8125rem; padding: 0.5rem;">
+              Radicar Solicitud
+            </a>
+          </div>
+        </aside>
+
+        <!-- CONTENIDO: Grid de Productos -->
+        <section class="catalog-content" aria-label="Listado de Créditos Disponibles">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span id="resultsCount" style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted);">
+              Cargando catálogo...
+            </span>
+          </div>
+
+          <div class="catalog-grid" id="catalogGridContainer">
+            <!-- Renderizado dinámico vía js/catalogo.js -->
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== MODAL DE DETALLE DE PRODUCTO ==================== -->
+  <div class="modal-overlay" id="productDetailModal" role="dialog" aria-modal="true" aria-labelledby="modalDetailTitle">
+    <div class="modal-container">
+      <div class="modal-header purple-header">
+        <h3 id="modalDetailTitle">Detalles y Requisitos</h3>
+        <button id="closeProductDetailBtn" style="color: #ffffff; font-size: 1.5rem; line-height: 1;" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-body" id="modalDetailBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="document.getElementById('productDetailModal').classList.remove('open')">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE BANCA VIRTUAL ==================== -->
+  <div class="modal-overlay" id="bancaVirtualModal" role="dialog" aria-modal="true" aria-labelledby="bvModalTitleCat">
+    <div class="modal-container">
+      <div class="modal-header purple-header">
+        <h3 id="bvModalTitleCat" style="font-size: 1.25rem;">Acceso a Banca Virtual</h3>
+        <button id="closeBancaVirtualBtn" style="color: #ffffff; font-size: 1.5rem; line-height: 1;" aria-label="Cerrar">&times;</button>
+      </div>
+      <form id="bancaVirtualForm" class="modal-body" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="bvUser">Tipo y Número de Documento o Usuario</label>
+          <input type="text" id="bvUser" class="input-field" placeholder="Ej: 1020304050" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bvPass">Clave de Seguridad Personal</label>
+          <input type="password" id="bvPass" class="input-field" placeholder="••••••••" required />
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Conexión segura cifrada con protocolo SSL de 256 bits.
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem; width: 100%;">
+          Ingresar Seguro
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE TÉRMINOS LEGALES ==================== -->
+  <div class="modal-overlay" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitleCat">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="legalModalTitleCat" style="font-size: 1.25rem;">Información Legal</h3>
+        <button id="closeLegalModalBtn" style="font-size: 1.5rem; line-height: 1; color: var(--text-muted);" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-body" id="legalModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="document.getElementById('legalModal').classList.remove('open')">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.35rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Banco Amigo S.A.
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--text-muted);">
+            Vigilado por la <strong>Superintendencia Financiera de Colombia</strong> &bull; Nit: 860.002.964-1
+          </p>
+        </div>
+
+        <nav class="footer-links" aria-label="Enlaces Legales">
+          <button data-legal-modal="tasas">Tasas y Tarifas</button>
+          <button data-legal-modal="datos">Protección de Datos</button>
+          <button data-legal-modal="consumidor">Defensor del Consumidor</button>
+          <button data-legal-modal="seguridad">Seguridad Bancaria</button>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/catalogo.js"></script>
+</body>
+</html>

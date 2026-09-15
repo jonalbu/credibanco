@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitud de Crédito Digital - Banco Amigo</title>
+  <meta name="description" content="Radica tu solicitud de crédito en línea con Banco Amigo en solo 3 sencillos pasos con respuesta y aprobación ágil." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Hoja de Estilos CSS3 Profesional -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==================== HEADER & BARRA DE NAVEGACIÓN ==================== -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar" aria-label="Navegación Principal">
+        <a href="index.html" class="brand-logo" id="solBrandLogo">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <span>Banco Amigo</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" id="navSolHome">Inicio</a></li>
+          <li><a href="catalogo.html" class="nav-link" id="navSolCatalogo">Catálogo de Créditos</a></li>
+          <li><a href="simulador.html" class="nav-link" id="navSolSimulador">Simulador</a></li>
+          <li><a href="solicitar.html" class="nav-link active" id="navSolSolicitar">Solicitud Digital</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn-banca-virtual btn-open-banca-virtual" id="btnSolHeaderBancaVirtual">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Banca Virtual</span>
+          </button>
+
+          <button class="btn-mobile-toggle" id="mobileMenuToggle" aria-label="Abrir menú de navegación">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Menú Desplegable Móvil -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="mobile-nav-link">Inicio</a>
+      <a href="catalogo.html" class="mobile-nav-link">Catálogo de Créditos</a>
+      <a href="simulador.html" class="mobile-nav-link">Simulador</a>
+      <a href="solicitar.html" class="mobile-nav-link active">Solicitud Digital</a>
+      <button class="btn btn-primary btn-open-banca-virtual" style="margin-top: 0.5rem; width: 100%;">Ingresar a Banca Virtual</button>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+  <main style="padding: 3rem 0 5rem;">
+    <div class="container" style="max-width: 52rem;">
+      
+      <!-- Encabezado de la Solicitud -->
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span class="badge badge-primary" style="margin-bottom: 0.5rem;">Trámite 100% en Línea</span>
+        <h1 style="font-size: 2.25rem;">Formulario de Solicitud de Crédito</h1>
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 36rem; margin: 0.5rem auto 0;">
+          Diligencia tus datos para iniciar el estudio crediticio. Te garantizamos respuesta rápida y confidencialidad absoluta.
+        </p>
+      </div>
+
+      <!-- STEPPER DE PROGRESO -->
+      <div class="stepper" aria-label="Progreso de la solicitud">
+        <div class="step-item active" id="stepIndicator1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Datos Personales</span>
+        </div>
+        <div class="step-item" id="stepIndicator2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Datos Financieros</span>
+        </div>
+        <div class="step-item" id="stepIndicator3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Detalles del Crédito</span>
+        </div>
+      </div>
+
+      <!-- CONTENEDOR DEL FORMULARIO -->
+      <div id="formContainer" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md);">
+        
+        <form id="creditApplicationForm" novalidate>
+
+          <!-- ================= PASO 1: INFORMACIÓN PERSONAL ================= -->
+          <div class="step-pane" id="stepPane1">
+            <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--primary-dark);">
+              Paso 1: Información Personal y de Contacto
+            </h2>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem;">
+              Ingresa tus nombres completos y datos de identificación tal como aparecen en tu documento oficial.
+            </p>
+
+            <div class="form-grid">
+              <!-- Nombres -->
+              <div class="form-group">
+                <label for="nombre" class="form-label">Nombres *</label>
+                <input type="text" id="nombre" class="input-field" placeholder="Ej: Carlos Andrés" required />
+                <span class="form-error" id="errorNombre"></span>
+              </div>
+
+              <!-- Apellidos -->
+              <div class="form-group">
+                <label for="apellido" class="form-label">Apellidos *</label>
+                <input type="text" id="apellido" class="input-field" placeholder="Ej: Gómez Martínez" required />
+                <span class="form-error" id="errorApellido"></span>
+              </div>
+
+              <!-- Tipo de Documento -->
+              <div class="form-group">
+                <label for="tipoDoc" class="form-label">Tipo de Documento *</label>
+                <select id="tipoDoc" class="input-field">
+                  <option value="CC">Cédula de Ciudadanía (C.C.)</option>
+                  <option value="CE">Cédula de Extranjería (C.E.)</option>
+                  <option value="PA">Pasaporte</option>
+                </select>
+              </div>
+
+              <!-- Número de Documento -->
+              <div class="form-group">
+                <label for="numeroDoc" class="form-label">Número de Documento *</label>
+                <input type="text" id="numeroDoc" class="input-field" placeholder="Ej: 1020304050" required />
+                <span class="form-error" id="errorNumeroDoc"></span>
+              </div>
+
+              <!-- Correo Electrónico -->
+              <div class="form-group">
+                <label for="email" class="form-label">Correo Electrónico *</label>
+                <input type="email" id="email" class="input-field" placeholder="usuario@correo.com" required />
+                <span class="form-error" id="errorEmail"></span>
+              </div>
+
+              <!-- Teléfono Celular -->
+              <div class="form-group">
+                <label for="telefono" class="form-label">Teléfono Móvil / Celular *</label>
+                <input type="tel" id="telefono" class="input-field" placeholder="Ej: 3101234567" required />
+                <span class="form-error" id="errorTelefono"></span>
+              </div>
+
+              <!-- Ciudad de Residencia -->
+              <div class="form-group full-width">
+                <label for="ciudad" class="form-label">Ciudad de Residencia *</label>
+                <input type="text" id="ciudad" class="input-field" placeholder="Ej: Medellín, Bogotá, Cali, Barranquilla..." required />
+                <span class="form-error" id="errorCiudad"></span>
+              </div>
+            </div>
+
+            <!-- Banner de Seguridad -->
+            <div class="security-banner">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div>
+                <strong>Tus datos están protegidos</strong>. La información suministrada se procesa bajo estándares de cifrado bancario y cumplimiento estricto de la Ley 1581 de Habeas Data.
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= PASO 2: INFORMACIÓN FINANCIERA ================= -->
+          <div class="step-pane" id="stepPane2" style="display: none;">
+            <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--primary-dark);">
+              Paso 2: Actividad Económica e Ingresos
+            </h2>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem;">
+              Esta información nos permite calcular de forma precisa tu capacidad de endeudamiento y ofrecerte la mejor tasa.
+            </p>
+
+            <div class="form-grid">
+              <!-- Ocupación -->
+              <div class="form-group">
+                <label for="ocupacion" class="form-label">Ocupación / Situación Laboral *</label>
+                <select id="ocupacion" class="input-field">
+                  <option value="empleado">Empleado con contrato a término indefinido</option>
+                  <option value="empleado_fijo">Empleado con contrato a término fijo / obra</option>
+                  <option value="independiente">Independiente / Profesional Liberal</option>
+                  <option value="comerciante">Empresario / Comerciante</option>
+                  <option value="pensionado">Pensionado / Jubilado</option>
+                </select>
+              </div>
+
+              <!-- Empresa -->
+              <div class="form-group">
+                <label for="empresa" class="form-label">Nombre de la Empresa o Actividad *</label>
+                <input type="text" id="empresa" class="input-field" placeholder="Ej: Soluciones Tecnológicas S.A.S." required />
+                <span class="form-error" id="errorEmpresa"></span>
+              </div>
+
+              <!-- Ingresos Mensuales -->
+              <div class="form-group">
+                <label for="ingresosMensuales" class="form-label">Ingresos Mensuales Comprobables (COP) *</label>
+                <input type="number" id="ingresosMensuales" class="input-field" value="3500000" step="100000" min="1000000" required />
+                <span class="form-error" id="errorIngresos"></span>
+              </div>
+
+              <!-- Gastos Mensuales -->
+              <div class="form-group">
+                <label for="gastosMensuales" class="form-label">Gastos Fijos Mensuales (COP) *</label>
+                <input type="number" id="gastosMensuales" class="input-field" value="1200000" step="50000" min="0" required />
+                <span class="form-error" id="errorGastos"></span>
+              </div>
+            </div>
+
+            <!-- Indicador Dinámico de Solvencia -->
+            <div style="margin-top: 1.5rem;" id="solvencyCapacityIndicator">
+              <!-- Calculado dinámicamente por solicitar.js -->
+            </div>
+          </div>
+
+          <!-- ================= PASO 3: DETALLES DEL CRÉDITO ================= -->
+          <div class="step-pane" id="stepPane3" style="display: none;">
+            <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--primary-dark);">
+              Paso 3: Configuración del Crédito y Autorizaciones
+            </h2>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.75rem;">
+              Especifica las condiciones deseadas y autoriza los consentimientos legales necesarios para el desembolso.
+            </p>
+
+            <div class="form-grid">
+              <!-- Línea de Crédito -->
+              <div class="form-group">
+                <label for="lineaCredito" class="form-label">Línea de Crédito *</label>
+                <select id="lineaCredito" class="input-field">
+                  <option value="hipotecario">Crédito Hipotecario / Vivienda (Desde 10.5% E.A.)</option>
+                  <option value="libre-inversion">Crédito de Libre Inversión (Desde 14.5% E.A.)</option>
+                  <option value="vehiculo">Crédito de Vehículo (Desde 12.8% E.A.)</option>
+                  <option value="empresarial">Crédito Empresarial y PYME (Desde 11.9% E.A.)</option>
+                  <option value="educativo">Crédito Educativo (Desde 9.8% E.A.)</option>
+                  <option value="cartera">Compra de Cartera (Desde 11.5% E.A.)</option>
+                </select>
+              </div>
+
+              <!-- Destino de los Fondos -->
+              <div class="form-group">
+                <label for="destinoCredito" class="form-label">Destino de los Fondos *</label>
+                <select id="destinoCredito" class="input-field">
+                  <option value="compra-vivienda">Compra de Vivienda / Inmueble</option>
+                  <option value="compra-vehiculo">Compra de Vehículo o Moto</option>
+                  <option value="estudios">Pago de Semestre o Especialización</option>
+                  <option value="remodelacion">Remodelación del Hogar</option>
+                  <option value="consolidacion">Consolidación de Deudas</option>
+                  <option value="capital-trabajo">Capital de Trabajo para Negocio</option>
+                </select>
+              </div>
+
+              <!-- Monto Solicitado -->
+              <div class="form-group">
+                <label for="montoSolicitado" class="form-label">Monto Solicitado (COP) *</label>
+                <input type="number" id="montoSolicitado" class="input-field" value="50000000" step="500000" min="1000000" required />
+                <span class="form-error" id="errorMonto"></span>
+              </div>
+
+              <!-- Plazo en Meses -->
+              <div class="form-group">
+                <label for="plazoSolicitado" class="form-label">Plazo Deseado (Meses) *</label>
+                <input type="number" id="plazoSolicitado" class="input-field" value="120" min="6" max="240" required />
+                <span class="form-error" id="errorPlazo"></span>
+              </div>
+
+              <!-- Términos y Condiciones -->
+              <div class="form-group full-width" style="margin-top: 1rem;">
+                <label class="checkbox-label" style="align-items: flex-start;">
+                  <input type="checkbox" id="aceptaTerminos" required style="margin-top: 0.25rem;" />
+                  <span style="font-size: 0.8125rem;">
+                    Acepto los <a href="#" data-legal-modal="tasas">Términos y Condiciones</a> del producto de crédito y certifico que toda la información consignada es verídica.
+                  </span>
+                </label>
+                <span class="form-error" id="errorTerminos"></span>
+              </div>
+
+              <!-- Habeas Data -->
+              <div class="form-group full-width">
+                <label class="checkbox-label" style="align-items: flex-start;">
+                  <input type="checkbox" id="aceptaHabeas" required style="margin-top: 0.25rem;" />
+                  <span style="font-size: 0.8125rem;">
+                    Autorizo a <strong>Banco Amigo S.A.</strong> para consultar, reportar y procesar mi comportamiento financiero ante las centrales de riesgo autorizadas (Datacrédito, TransUnion).
+                  </span>
+                </label>
+                <span class="form-error" id="errorHabeas"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTONES DE NAVEGACIÓN DEL STEPPER -->
+          <div class="form-nav-buttons">
+            <button type="button" class="btn btn-outline" id="btnPrevStep" style="display: none;">
+              &larr; Anterior
+            </button>
+
+            <div style="margin-left: auto; display: flex; gap: 0.75rem;">
+              <button type="button" class="btn btn-primary" id="btnNextStep">
+                Continuar &rarr;
+              </button>
+              <button type="submit" class="btn btn-primary" id="btnSubmitForm" style="display: none;">
+                Radicar Solicitud Oficial
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- ================= PANTALLA DE CONFIRMACIÓN / ÉXITO ================= -->
+      <div id="successContainer" style="display: none; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 3rem 2rem; box-shadow: var(--shadow-md); text-align: center;">
+        <div style="width: 4.5rem; height: 4.5rem; background-color: var(--success-light); color: #065f46; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+
+        <span class="badge badge-success" style="margin-bottom: 0.75rem;">Solicitud Radicada Exitosamente</span>
+        <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">¡Tu solicitud está en estudio!</h2>
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 36rem; margin: 0 auto 1.5rem;">
+          Hemos recibido tus datos correctamente y nuestro comité de crédito digital está validando la información.
+        </p>
+
+        <!-- Tarjeta del Número de Radicado -->
+        <div style="background-color: var(--bg-app); border: 2px dashed var(--primary); border-radius: var(--radius-md); padding: 1.5rem; max-width: 28rem; margin: 0 auto 2rem;">
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Número de Radicado Oficial</span>
+          <div id="successRadicadoNum" style="font-size: 1.75rem; font-weight: 800; color: var(--primary-dark); font-family: var(--font-headline); margin: 0.35rem 0;">
+            RAD-2026-000000
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--text-muted);">
+            Guarda este número para realizar seguimiento a tu trámite.
+          </p>
+        </div>
+
+        <!-- Resumen de Solicitud -->
+        <div style="text-align: left; max-width: 28rem; margin: 0 auto 2rem; background: #ffffff; border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem; font-size: 0.875rem;">
+          <div style="display: flex; justify-content: space-between; padding: 0.35rem 0;">
+            <span style="color: var(--text-muted);">Titular:</span>
+            <strong id="successApplicantName">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.35rem 0;">
+            <span style="color: var(--text-muted);">Monto Solicitado:</span>
+            <strong id="successAmount">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.35rem 0;">
+            <span style="color: var(--text-muted);">Plazo:</span>
+            <strong id="successTerm">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.35rem 0;">
+            <span style="color: var(--text-muted);">Correo de Notificación:</span>
+            <strong id="successEmail">-</strong>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="index.html" class="btn btn-primary">
+            Volver al Inicio
+          </a>
+          <button class="btn btn-outline" onclick="window.print()">
+            Imprimir Comprobante
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== MODAL DE BANCA VIRTUAL ==================== -->
+  <div class="modal-overlay" id="bancaVirtualModal" role="dialog" aria-modal="true" aria-labelledby="bvModalTitleSol">
+    <div class="modal-container">
+      <div class="modal-header purple-header">
+        <h3 id="bvModalTitleSol" style="font-size: 1.25rem;">Acceso a Banca Virtual</h3>
+        <button id="closeBancaVirtualBtn" style="color: #ffffff; font-size: 1.5rem; line-height: 1;" aria-label="Cerrar">&times;</button>
+      </div>
+      <form id="bancaVirtualForm" class="modal-body" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="bvUser">Tipo y Número de Documento o Usuario</label>
+          <input type="text" id="bvUser" class="input-field" placeholder="Ej: 1020304050" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bvPass">Clave de Seguridad Personal</label>
+          <input type="password" id="bvPass" class="input-field" placeholder="••••••••" required />
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Conexión segura cifrada con protocolo SSL de 256 bits.
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem; width: 100%;">
+          Ingresar Seguro
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE TÉRMINOS LEGALES ==================== -->
+  <div class="modal-overlay" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitleSol">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="legalModalTitleSol" style="font-size: 1.25rem;">Información Legal</h3>
+        <button id="closeLegalModalBtn" style="font-size: 1.5rem; line-height: 1; color: var(--text-muted);" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-body" id="legalModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="document.getElementById('legalModal').classList.remove('open')">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.35rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Banco Amigo S.A.
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--text-muted);">
+            Vigilado por la <strong>Superintendencia Financiera de Colombia</strong> &bull; Nit: 860.002.964-1
+          </p>
+        </div>
+
+        <nav class="footer-links" aria-label="Enlaces Legales">
+          <button data-legal-modal="tasas">Tasas y Tarifas</button>
+          <button data-legal-modal="datos">Protección de Datos</button>
+          <button data-legal-modal="consumidor">Defensor del Consumidor</button>
+          <button data-legal-modal="seguridad">Seguridad Bancaria</button>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/solicitar.js"></script>
+</body>
+</html>
