@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Catalogo from "./pages/Catalogo";
 import Simulador from "./pages/Simulador";
@@ -11,10 +12,10 @@ import PaginaNoEncontrada from "./pages/PaginaNoEncontrada";
 function App() {
   return (
     <BrowserRouter>
-      {/* Barra de navegación superior fija en toda la aplicación */}
+      {/* Barra de navegación superior fija */}
       <Navbar />
 
-      {/* Definición declarativa de las rutas disponibles */}
+      {/* Contenedor dinámico de rutas */}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -25,6 +26,9 @@ function App() {
           <Route path="*" element={<PaginaNoEncontrada />} />
         </Routes>
       </main>
+
+      {/* Pie de página institucional visible en todas las pantallas */}
+      <Footer />
     </BrowserRouter>
   );
 }
