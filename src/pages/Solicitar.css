@@ -1,0 +1,110 @@
+/* ==========================================================================
+   BANCO AMIGO - ESTILOS DE SOLICITUD DE CRÉDITO (Solicitar.css)
+   ========================================================================== */
+
+.solicitar-section {
+  padding: 2.5rem 0 4rem;
+}
+
+.solicitar-hero {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.5rem;
+}
+
+.solicitud-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.form-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.form-error {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--danger);
+  min-height: 1rem;
+}
+
+.input-error {
+  border-color: var(--danger) !important;
+  background-color: #fff8f8;
+}
+
+.solicitud-resumen-box {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(202, 196, 212, 0.6);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+
+.solicitud-exito-box {
+  background-color: var(--success-light);
+  border: 2px solid var(--success);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.solicitud-exito-icono {
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--success);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin: 0 auto 1rem;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .solicitud-layout {
+    grid-template-columns: 7fr 5fr;
+  }
+  .solicitud-resumen-box {
+    position: sticky;
+    top: 6rem;
+  }
+}
