@@ -7,66 +7,70 @@ Actividad EA2: transformar el diseño estático de Banco Amigo en una app React 
 ## Restricciones de stack
 
 Usar únicamente:
-- React con JavaScript, no uses TypeScript para trabajar 
-- CSS plano en archivos .css normales
-- Vite (ya está configurado, no lo cambies)
-- react-router-dom para la navegación
+- Trabajar con React y JavaScript; no utilizar TypeScript.
+- Emplea el CSS de muestra quese encuentra en la ruta `Tarea_1/styles.css`.
+- Mantener Vite, que ya se encuentra configurado, sin realizar cambios.
+- Utilizar `react-router-dom` para gestionar la navegación.
+- Puedes usar Tailwind, pero no es obligatorio. Si decides usarlo, configúralo correctamente y documenta los pasos en el README.
 
-Está PROHIBIDO instalar o usar:
-- Tailwind,Bootstrap, styled-components, Material UI, o cualquier librería de estilos
-- Redux, Zustand, Jotai o cualquier gesto de estado externo
-- Axios, TanStack Query, SWR
-- TypeScript 
-- Cualquier dependencia que no sea react, react-dom y react-router-dom
+No usar e instalar los siguientes paquetes:
+- TypeScript
+- Cualquier dependencia distinta de react, react-dom y react-router-dom
+- De acuerdo con el 
 
 
-Si crees que algo se resuelve mejor con una librería, no la instales. Resuelvelo con JavaScript y react puros y deja un comentario explicando qué librería usaríaas en un proyecto real y por qué.
+Si consideras que una librería facilitaría alguna solución, no la instales. Implementa esa funcionalidad con JavaScript y React puros, y agrega un comentario indicando qué librería se emplearía en un proyecto real y cuál sería la razón.
 
-## Restricciones de React
+## Restricciones para React
 
-Usa solamente estos hooks: useState y useEffect.
+Limítate a utilizar los hooks `useState` y `useEffect`.
 
-NO uses: useReducer, useContext, useMemo, useCallback, useRef, custom hooks,
-React.memo, forwardRef, lazy, Suspense, portales, HOCs, render props.
+NO emplees: `useReducer`, `useContext`, `useMemo`, `useCallback`, `useRef`, hooks
+personalizados, `React.memo`, `forwardRef`, `lazy`, `Suspense`, portales, HOCs ni
+render props.
 
-Los estudiantes no han visto nada de eso. Si un patrón avanzado haría el código más
-limpio, escribe la versión simple y agrega un comentario de una línea diciendo qué
-se usaría en producción.
+Los estudiantes todavía no conocen estas herramientas. Si una solución avanzada
+permitiera simplificar el código, implementa en su lugar la alternativa básica y añade
+un comentario de una línea que indique qué se usaría en un proyecto de producción.
 
-Componentes funcionales siempre. Nunca componentes de clase.
-Props siempre desestructuradas en el parámetro: `function CreditCard({ nombre, tasa })`.
-Un componente por archivo. `export default` al final.
+Utiliza únicamente componentes funcionales; no crees componentes de clase.
+Desestructura siempre las props en el parámetro, por ejemplo:
+`function CreditCard({ nombre, tasa })`.
+Cada archivo debe contener un solo componente y usar `export default` al final.
 
-## Estilo de código
+## Convenciones de código
 
-Nombres de variables, funciones, componentes y archivos en español, salvo las palabras
-propias de React y JavaScript. Ejemplo: `productosFiltrados`, `manejarEnvio`, `CreditCard`.
+Escribe en español los nombres de variables, funciones, componentes y archivos, excepto
+los términos propios de React y JavaScript. Por ejemplo:
+`productosFiltrados`, `manejarEnvio`, `CreditCard`.
 
-Comentarios en español. Los comentarios explican el POR QUÉ, no el qué.
+Los comentarios deben estar en español y explicar la razón de una decisión, no describir
+literalmente lo que hace el código.
 
-Mal:
+Incorrecto:
 ```js
 // Filtra los productos
 const filtrados = productos.filter(...)
 ```
 
-Bien:
+Correcto:
 ```js
 // Este valor NO va en useState: se recalcula solo en cada renderizado.
 // Guardarlo en estado duplicaría los datos y se desincronizarían.
 const filtrados = productos.filter(...)
 ```
 
-Nada de encadenamientos largos en una sola línea. Si una expresión tiene más de dos
-operaciones, pártela en variables intermedias con nombre.
+Evita las cadenas extensas en una sola línea. Cuando una expresión contenga más de dos
+operaciones, divídela mediante variables intermedias con nombres descriptivos.
 
-Nada de operadores ternarios anidados. Nada de abreviaturas crípticas.
+No utilices operadores ternarios anidados ni abreviaturas difíciles de entender.
 
 
-## Estructura de carpetas obligatoria
+## Estructura obligatoria de carpetas
 
 ```
 src/
+├── Tarea_1/        archivos de diseño (HTML, CSS, imágenes)
 ├── components/     componentes reutilizables (Navbar, CreditCard, Footer)
 ├── pages/          una página por ruta (Home, Catalogo, Simulador, Solicitar)
 ├── data/           creditsData.js
@@ -76,25 +80,28 @@ src/
 └── index.css
 ```
 
-## Referencias de diseño
+## Referencias visuales y diseño
+Los archivos HTML, CSS e imágenes base se encuentran en la carpeta `Tarea_1/`:
+- `Tarea_1/index.html` (Inicio)
+- `Tarea_1/catalogo.html` (Catálogo)
+- `Tarea_1/simulador.html` (Simulador)
+- `Tarea_1/solicitar.html` (Solicitud)
+- `Tarea_1/styles.css` (Estilos base para replicar)
+Considera estos archivos como la única fuente de diseño para mantener la misma paleta de colores, distribución y jerarquía visual.
 
-Los mockups están en `docs/mockups/` como PNG. Léelos antes de escribir estilos y
-respeta la disposición, la jerarquía visual y la paleta que muestran.
 
-Si existe `docs/referencia-html/`, es HTML exportado de una herramienta de diseño.
-Úsalo SOLO como referencia visual. No copies su estructura ni sus clases: tiene datos
-quemados y organización que no sirve para React.
 
-## Forma de trabajar
+## Metodología de trabajo
 
-Trabaja por fases. Al terminar cada fase:
+Avanza por fases. Al finalizar cada una:
 1. Detente y no sigas a la siguiente sin que te lo pida
-2. Resume en máximo cinco líneas qué archivos tocaste y qué concepto de React aparece ahí
-3. Propón un mensaje de commit en español, en imperativo, de una sola línea
+2. Resume en un máximo de cinco líneas los archivos modificados y el concepto de React utilizado
+3. Sugiere en una sola línea un mensaje de commit en español y en modo imperativo
 
-Nunca hagas commits tú mismo. El docente los hace a mano frente a la clase.
+No realices commits. Yo los realizaré manualmente. Solo sugiere el mensaje de commit.
 
-Si un archivo va a pasar de 120 líneas, avísame antes de escribirlo y propón cómo partirlo.
+Si algún archivo supera las 120 líneas, avisa antes de escribirlo y propone una forma de
+dividirlo.
 
-Antes de escribir código nuevo, si hay una decisión con más de una salida razonable,
-pregunta en vez de asumir.
+Antes de escribir código nuevo, si existe más de una alternativa razonable, pregunta
+cuál elegir en lugar de asumir una decisión.
