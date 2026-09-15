@@ -1,0 +1,146 @@
+/* ==========================================================================
+   BANCO AMIGO - ESTILOS DEL SIMULADOR FINANCIERO (Simulador.css)
+   ========================================================================== */
+
+.sim-section {
+  padding: 2.5rem 0 4rem;
+}
+.sim-hero {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.5rem;
+}
+
+.sim-controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid rgba(202, 196, 212, 0.6);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+}
+
+.sim-control-item {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sim-control-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.sim-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.type-select-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.type-radio-card {
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-fast);
+}
+
+.type-radio-card:hover {
+  border-color: var(--primary);
+}
+.type-radio-card.active {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.slider-group {
+  margin-bottom: 1.75rem;
+}
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.slider-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.slider-range {
+  width: 100%;
+  accent-color: var(--primary);
+  height: 6px;
+}
+
+.summary-card {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(202, 196, 212, 0.6);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+
+.cuota-highlight {
+  background-color: var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.cuota-highlight-val {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  display: block;
+}
+
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+}
+
+.summary-row.total {
+  border-top: 1px solid var(--border-light);
+  padding-top: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .sim-layout {
+    grid-template-columns: 7fr 5fr;
+  }
+  .type-select-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .summary-card {
+    position: sticky;
+    top: 6rem;
+  }
+}
