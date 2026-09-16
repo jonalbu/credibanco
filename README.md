@@ -16,7 +16,7 @@ Proyecto desarrollado para el curso **Ingeniería Web** de la **Institución Uni
 * **Programa:** Ingeniería de Software / Sistemas
 * **Institución:** IU Digital de Antioquia
 * **Curso:** Ingeniería Web (7° Semestre)
-* **Docente:** Tutor del curso
+* **Docente:** Jorge Armando
 
 ---
 
