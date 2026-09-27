@@ -143,7 +143,7 @@ npm run preview
 
 ##  Capturas de Pantalla de la Aplicación
 
-> *(Inserta aquí las capturas de pantalla de tu aplicación antes de la entrega final)*
+>
 
 | Inicio (Hero y Destacados) | Catálogo con Filtros |
 | :---: | :---: |
