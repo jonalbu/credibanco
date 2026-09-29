@@ -1,28 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { obtenerCreditos, sembrarCreditosIniciales } from "../services/creditosService";
 import { CREDIT_PRODUCTS } from "../data/creditsData";
 import CreditCard from "../components/CreditCard";
+import CatalogoToolbar from "../components/CatalogoToolbar";
+import CatalogoSembrado from "../components/CatalogoSembrado";
 import "./Catalogo.css";
 
-// Componente del catálogo con filtrado y ordenamiento interactivo.
+// Componente del catálogo conectado a Firestore con carga asíncrona, filtrado y ordenamiento.
 function Catalogo() {
+  const [creditos, setCreditos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+  const [sembrando, setSembrando] = useState(false);
   const [categoria, setCategoria] = useState("todas");
   const [criterioOrden, setCriterioOrden] = useState("defecto");
 
-  // Obtiene dinámicamente las categorías únicas a partir de los datos base
-  const categorias = [
-    "todas",
-    ...new Set(CREDIT_PRODUCTS.map((item) => item.category)),
-  ];
-
-  const limpiarFiltros = () => {
-    setCategoria("todas");
-    setCriterioOrden("defecto");
+  const cargarCreditos = async () => {
+    setCargando(true);
+    setError(null);
+    try {
+      const lista = await obtenerCreditos();
+      setCreditos(lista);
+    } catch (err) {
+      setError(err.message || "Error al conectar con la base de datos.");
+    } finally {
+      setCargando(false);
+    }
   };
 
-  // Este valor NO va en useState: es un cálculo derivado que se recalcula en cada render.
-  // Se crea una copia con [...CREDIT_PRODUCTS] antes de ordenar porque .sort() muta el arreglo
-  // in-situ (en memoria), lo cual violaría la inmutabilidad de React y alteraría la fuente original.
-  const creditosMostrados = [...CREDIT_PRODUCTS]
+  useEffect(() => {
+    let activo = true;
+    obtenerCreditos()
+      .then((lista) => { if (activo) setCreditos(lista); })
+      .catch((err) => { if (activo) setError(err.message || "Error de conexión."); })
+      .finally(() => { if (activo) setCargando(false); });
+    return () => { activo = false; };
+  }, []);
+
+  const manejarSembrado = async () => {
+    setSembrando(true);
+    try {
+      await sembrarCreditosIniciales(CREDIT_PRODUCTS);
+      await cargarCreditos();
+    } catch (err) {
+      setError(err.message || "Error al inicializar la base de datos.");
+    } finally {
+      setSembrando(false);
+    }
+  };
+
+  // Valores derivados calculados en cada renderizado (NO van en useState para evitar desincronización)
+  const categorias = ["todas", ...new Set(creditos.map((c) => c.category))];
+  const creditosMostrados = [...creditos]
     .filter((c) => categoria === "todas" || c.category === categoria)
     .sort((a, b) => {
       if (criterioOrden === "tasa-asc") return a.rateEA - b.rateEA;
@@ -35,97 +64,51 @@ function Catalogo() {
     <section className="catalog-section">
       <div className="container">
         <div className="catalog-hero">
-          <span
-            className="badge badge-primary"
-            style={{ marginBottom: "0.5rem" }}
-          >
-            Portafolio Institucional 2026
-          </span>
+          <span className="badge badge-primary">Portafolio Institucional 2026</span>
           <h1 className="catalog-title">Catálogo de Líneas de Crédito</h1>
           <p className="catalog-subtitle">
-            Explora y compara nuestras líneas de crédito según tasa y monto.
+            Explora y compara nuestras líneas de crédito conectadas a Firestore.
           </p>
         </div>
 
-        {/* Barra de control con selectores y botón de limpieza */}
-        <div className="catalog-toolbar">
-          <div className="control-grupo">
-            <label htmlFor="selectCategoria" className="control-etiqueta">
-              Categoría:
-            </label>
-            <select
-              id="selectCategoria"
-              value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
-              className="control-select"
-            >
-              {categorias.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat === "todas" ? "Todas las categorías" : cat.toUpperCase()}
-                </option>
-              ))}
-            </select>
+        {cargando && <div className="catalog-cargando">Cargando productos de crédito...</div>}
+
+        {error && (
+          <div className="catalog-alerta-error">
+            <p>{error}</p>
+            <button type="button" onClick={cargarCreditos} className="btn btn-outline" style={{ marginTop: "0.5rem" }}>
+              Reintentar
+            </button>
           </div>
+        )}
 
-          <div className="control-grupo">
-            <label htmlFor="selectOrden" className="control-etiqueta">
-              Ordenar por:
-            </label>
-            <select
-              id="selectOrden"
-              value={criterioOrden}
-              onChange={(e) => setCriterioOrden(e.target.value)}
-              className="control-select"
-            >
-              <option value="defecto">Por defecto</option>
-              <option value="tasa-asc">Tasa: menor a mayor</option>
-              <option value="tasa-desc">Tasa: mayor a menor</option>
-              <option value="monto-desc">Monto máximo: mayor a menor</option>
-            </select>
-          </div>
+        {!cargando && !error && creditos.length === 0 && (
+          <CatalogoSembrado onSembrar={manejarSembrado} sembrando={sembrando} />
+        )}
 
-          <button
-            type="button"
-            onClick={limpiarFiltros}
-            className="btn btn-outline"
-          >
-            Limpiar filtros
-          </button>
-        </div>
-
-        {/* Contador de resultados encontrados */}
-        <p className="catalog-contador">
-          Mostrando {creditosMostrados.length}{" "}
-          {creditosMostrados.length === 1
-            ? "crédito disponible"
-            : "créditos disponibles"}
-        </p>
-
-        {/* Renderizado condicional: mensaje de vacío o lista con .map() */}
-        {creditosMostrados.length === 0 ? (
-          <div className="catalog-vacio">
-            <h3>No hay créditos disponibles</h3>
-            <p>
-              Intenta restablecer los filtros para volver a ver las opciones.
+        {!cargando && !error && creditos.length > 0 && (
+          <>
+            <CatalogoToolbar
+              categoria={categoria}
+              setCategoria={setCategoria}
+              criterioOrden={criterioOrden}
+              setCriterioOrden={setCriterioOrden}
+              categorias={categorias}
+              onLimpiar={() => { setCategoria("todas"); setCriterioOrden("defecto"); }}
+            />
+            <p className="catalog-contador">
+              Mostrando {creditosMostrados.length} {creditosMostrados.length === 1 ? "crédito disponible" : "créditos disponibles"}
             </p>
-          </div>
-        ) : (
-          <div className="catalog-grid">
-            {creditosMostrados.map((credito) => (
-              <CreditCard
-                key={credito.id}
-                id={credito.id}
-                name={credito.name}
-                category={credito.category}
-                rateEA={credito.rateEA}
-                minAmount={credito.minAmount}
-                maxAmount={credito.maxAmount}
-                minTerm={credito.minTerm}
-                maxTerm={credito.maxTerm}
-                description={credito.description}
-              />
-            ))}
-          </div>
+            {creditosMostrados.length === 0 ? (
+              <div className="catalog-vacio">
+                <h3>No hay créditos para los filtros seleccionados</h3>
+              </div>
+            ) : (
+              <div className="catalog-grid">
+                {creditosMostrados.map((c) => <CreditCard key={c.id} {...c} />)}
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
