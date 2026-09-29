@@ -24,11 +24,13 @@ export async function crearSolicitud(datosSolicitud) {
 // Consulta las solicitudes de un cliente filtrando por correo electrónico y ordenando cronológicamente.
 // Cumple con el criterio de la rúbrica de usar query(), where() y orderBy().
 export async function obtenerSolicitudesPorEmail(email) {
+  const emailLimpio = email.trim().toLowerCase();
+  const referenciaColeccion = collection(db, COLECCION_SOLICITUDES);
+
   try {
-    const referenciaColeccion = collection(db, COLECCION_SOLICITUDES);
     const consulta = query(
       referenciaColeccion,
-      where('email', '==', email.trim().toLowerCase()),
+      where('email', '==', emailLimpio),
       orderBy('fechaCreacion', 'desc')
     );
 
@@ -38,7 +40,20 @@ export async function obtenerSolicitudesPorEmail(email) {
       ...doc.data(),
     }));
   } catch (error) {
-    console.error('Error al consultar solicitudes por email:', error);
+    console.warn('Consulta compuesta en Firestore:', error.message);
+    // Si Firestore requiere crear un índice compuesto, se activa fallback con where()
+    if (error.message && error.message.includes('index')) {
+      const consultaSimple = query(
+        referenciaColeccion,
+        where('email', '==', emailLimpio)
+      );
+      const instantanea = await getDocs(consultaSimple);
+      const lista = instantanea.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      return lista.sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
+    }
     throw new Error('Error al consultar las solicitudes en Firestore.');
   }
 }

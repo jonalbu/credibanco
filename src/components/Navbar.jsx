@@ -2,10 +2,17 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./Navbar.css";
 
+const ENLACES_NAVEGACION = [
+  { ruta: "/", texto: "Inicio" },
+  { ruta: "/catalogo", texto: "Catálogo de Créditos" },
+  { ruta: "/simulador", texto: "Simulador" },
+  { ruta: "/solicitar", texto: "Solicitud Digital" },
+  { ruta: "/mis-solicitudes", texto: "Mis Solicitudes" },
+];
+
 // Componente de navegación global.
-// Se usa NavLink para aprovechar la propiedad isActive de React Router y dar feedback visual de la ruta actual.
+// Se usa NavLink para aprovechar la propiedad isActive de React Router y dar feedback visual.
 function Navbar() {
-  // Estado local para abrir o cerrar el menú hamburguesa en pantallas pequeñas
   const [menuAbierto, setMenuAbierto] = useState(false);
 
   const alternarMenu = () => {
@@ -16,9 +23,9 @@ function Navbar() {
     setMenuAbierto(false);
   };
 
-  const obtenerClaseEnlace = ({ isActive }) =>
+  const claseEnlace = ({ isActive }) =>
     isActive ? "nav-link active" : "nav-link";
-  const obtenerClaseMovil = ({ isActive }) =>
+  const claseMovil = ({ isActive }) =>
     isActive ? "mobile-nav-link active" : "mobile-nav-link";
 
   return (
@@ -43,31 +50,18 @@ function Navbar() {
             <span>Banco Amigo</span>
           </Link>
 
-          {/* Enlaces de escritorio resaltados con NavLink */}
+          {/* Enlaces de escritorio */}
           <ul className="nav-links">
-            <li>
-              <NavLink to="/" className={obtenerClaseEnlace}>
-                Inicio
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/catalogo" className={obtenerClaseEnlace}>
-                Catálogo de Créditos
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/simulador" className={obtenerClaseEnlace}>
-                Simulador
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/solicitar" className={obtenerClaseEnlace}>
-                Solicitud Digital
-              </NavLink>
-            </li>
+            {ENLACES_NAVEGACION.map(({ ruta, texto }) => (
+              <li key={ruta}>
+                <NavLink to={ruta} className={claseEnlace}>
+                  {texto}
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
-          {/* Botón de apertura para versión móvil */}
+          {/* Botón de apertura para móvil */}
           <div className="nav-actions">
             <button
               type="button"
@@ -95,30 +89,16 @@ function Navbar() {
       {/* Menú desplegable móvil */}
       {menuAbierto && (
         <div className="mobile-menu">
-          <NavLink to="/" className={obtenerClaseMovil} onClick={cerrarMenu}>
-            Inicio
-          </NavLink>
-          <NavLink
-            to="/catalogo"
-            className={obtenerClaseMovil}
-            onClick={cerrarMenu}
-          >
-            Catálogo de Créditos
-          </NavLink>
-          <NavLink
-            to="/simulador"
-            className={obtenerClaseMovil}
-            onClick={cerrarMenu}
-          >
-            Simulador
-          </NavLink>
-          <NavLink
-            to="/solicitar"
-            className={obtenerClaseMovil}
-            onClick={cerrarMenu}
-          >
-            Solicitud Digital
-          </NavLink>
+          {ENLACES_NAVEGACION.map(({ ruta, texto }) => (
+            <NavLink
+              key={ruta}
+              to={ruta}
+              className={claseMovil}
+              onClick={cerrarMenu}
+            >
+              {texto}
+            </NavLink>
+          ))}
         </div>
       )}
     </header>

@@ -1,0 +1,106 @@
+/* ==========================================================================
+   BANCO AMIGO - ESTILOS DE LA PÁGINA MIS SOLICITUDES (MisSolicitudes.css)
+   ========================================================================== */
+
+.solicitudes-section {
+  padding: 2.5rem 0 4rem;
+}
+
+.solicitudes-hero {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1.5rem;
+}
+
+.solicitudes-buscador {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(202, 196, 212, 0.6);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+.solicitudes-buscador-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.solicitudes-input-grupo {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.solicitudes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .solicitudes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .solicitudes-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.solicitud-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.solicitud-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.solicitud-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.75rem;
+}
+
+.solicitud-card-title {
+  font-size: 1.15rem;
+  margin-top: 0.25rem;
+  color: var(--text-main);
+}
+
+.solicitud-card-body {
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--text-main);
+}
+
+.solicitud-card-id code {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.solicitud-card-fecha {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-light);
+  color: var(--text-muted);
+}

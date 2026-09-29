@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Catalogo from "./pages/Catalogo";
 import Simulador from "./pages/Simulador";
 import Solicitar from "./pages/Solicitar";
+import MisSolicitudes from "./pages/MisSolicitudes";
 import PaginaNoEncontrada from "./pages/PaginaNoEncontrada";
 
 // Componente raíz de la aplicación.
@@ -22,6 +23,7 @@ function App() {
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/simulador" element={<Simulador />} />
           <Route path="/solicitar" element={<Solicitar />} />
+          <Route path="/mis-solicitudes" element={<MisSolicitudes />} />
           {/* Ruta comodín para capturar cualquier URL no definida (error 404) */}
           <Route path="*" element={<PaginaNoEncontrada />} />
         </Routes>
