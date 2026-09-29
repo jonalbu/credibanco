@@ -2,126 +2,91 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CREDIT_PRODUCTS } from "../data/creditsData";
 import { calcularCuotaMensual } from "../utils/calculos";
+import { validarCampo, validarFormularioCompleto } from "../utils/validaciones";
+import { crearSolicitud } from "../services/solicitudesService";
 import SolicitudFormulario from "../components/SolicitudFormulario";
 import SolicitudResumen from "../components/SolicitudResumen";
 import SolicitudExito from "../components/SolicitudExito";
+import SolicitarHero from "../components/SolicitarHero";
 import "./Solicitar.css";
 
-// Página de solicitud de crédito con validaciones en tiempo real y almacenamiento en memoria.
+// Página de solicitud de crédito con validaciones en tiempo real y persistencia en Firestore.
 function Solicitar() {
   const [parametros] = useSearchParams();
   const idInicial = parametros.get("credito") || CREDIT_PRODUCTS[0].id;
-  const productoInicial =
-    CREDIT_PRODUCTS.find((p) => p.id === idInicial) || CREDIT_PRODUCTS[0];
+  const prodInicial = CREDIT_PRODUCTS.find((p) => p.id === idInicial) || CREDIT_PRODUCTS[0];
 
   const estadoInicial = {
     nombre: "",
     cedula: "",
     email: "",
     telefono: "",
-    idCredito: productoInicial.id,
-    monto: Number(parametros.get("monto")) || productoInicial.minAmount,
-    plazo: Number(parametros.get("plazo")) || productoInicial.minTerm,
+    idCredito: prodInicial.id,
+    monto: Number(parametros.get("monto")) || prodInicial.minAmount,
+    plazo: Number(parametros.get("plazo")) || prodInicial.minTerm,
   };
 
   const [formulario, setFormulario] = useState(estadoInicial);
   const [errores, setErrores] = useState({});
-  // Array en memoria para almacenar las solicitudes radicadas durante la sesión del usuario
-  const [, setSolicitudes] = useState([]);
+  const [enviando, setEnviando] = useState(false);
+  const [errorEnvio, setErrorEnvio] = useState(null);
   const [solicitudEnviada, setSolicitudEnviada] = useState(null);
 
-  const productoActual =
-    CREDIT_PRODUCTS.find((p) => p.id === formulario.idCredito) ||
-    CREDIT_PRODUCTS[0];
-  const cuotaMensual = calcularCuotaMensual(
-    Number(formulario.monto),
-    Number(formulario.plazo),
-    productoActual.rateEA,
-  );
-
-  // Validación reactiva por cada campo
-  const validarCampo = (campo, valor) => {
-    let error = "";
-    if (campo === "nombre" && valor.trim().length < 3)
-      error = "Ingresa tu nombre completo (mínimo 3 caracteres)";
-    if (campo === "cedula" && (!/^\d+$/.test(valor) || valor.length < 6))
-      error = "Cédula inválida (mínimo 6 dígitos numéricos)";
-    if (campo === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor))
-      error = "Ingresa un correo electrónico válido";
-    if (campo === "telefono" && valor.trim().length < 7)
-      error = "Ingresa un número telefónico de contacto válido";
-    if (campo === "monto") {
-      const num = Number(valor);
-      if (num < productoActual.minAmount || num > productoActual.maxAmount)
-        error = "El monto está fuera del rango permitido";
-    }
-    if (campo === "plazo") {
-      const num = Number(valor);
-      if (num < productoActual.minTerm || num > productoActual.maxTerm)
-        error = "El plazo está fuera de los meses permitidos";
-    }
-    return error;
-  };
+  const productoActual = CREDIT_PRODUCTS.find((p) => p.id === formulario.idCredito) || CREDIT_PRODUCTS[0];
+  const cuotaMensual = calcularCuotaMensual(Number(formulario.monto), Number(formulario.plazo), productoActual.rateEA);
 
   const manejarCambio = (e) => {
     const { name, value } = e.target;
-    const nuevoValor =
-      name === "monto" || name === "plazo" ? Number(value) : value;
+    const nuevoValor = name === "monto" || name === "plazo" ? Number(value) : value;
     setFormulario((prev) => ({ ...prev, [name]: nuevoValor }));
-    const errorDetectado = validarCampo(name, nuevoValor);
+    const errorDetectado = validarCampo(name, nuevoValor, productoActual);
     setErrores((prev) => ({ ...prev, [name]: errorDetectado }));
   };
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault();
-    const nuevosErrores = {};
-    Object.keys(formulario).forEach((campo) => {
-      const err = validarCampo(campo, formulario[campo]);
-      if (err) nuevosErrores[campo] = err;
-    });
-
+    const nuevosErrores = validarFormularioCompleto(formulario, productoActual);
     if (Object.keys(nuevosErrores).length > 0) {
       setErrores(nuevosErrores);
       return;
     }
 
-    const nuevaSolicitud = {
+    setEnviando(true);
+    setErrorEnvio(null);
+    const radicadoInterno = `RAD-${Date.now().toString().slice(-6)}`;
+    const datosAGuardar = {
       ...formulario,
-      idRadicado: `RAD-${Date.now().toString().slice(-6)}`,
+      idRadicado: radicadoInterno,
       nombreProducto: productoActual.name,
+      tasaEA: productoActual.rateEA,
       cuotaMensual,
     };
 
-    // Almacena la solicitud en el array de memoria y reinicia el formulario automáticamente
-    setSolicitudes((prev) => [...prev, nuevaSolicitud]);
-    setSolicitudEnviada(nuevaSolicitud);
-    setFormulario(estadoInicial);
-    setErrores({});
+    try {
+      const idFirestore = await crearSolicitud(datosAGuardar);
+      setSolicitudEnviada({ ...datosAGuardar, idFirestore });
+      setFormulario(estadoInicial);
+      setErrores({});
+    } catch (err) {
+      setErrorEnvio(err.message || "Error al radicar la solicitud en Firestore.");
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
     <section className="solicitar-section">
       <div className="container">
-        <div className="solicitar-hero">
-          <span
-            className="badge badge-primary"
-            style={{ marginBottom: "0.5rem" }}
-          >
-            Trámite 100% Digital
-          </span>
-          <h1 style={{ fontSize: "2.25rem", marginBottom: "0.5rem" }}>
-            Solicitud de Crédito
-          </h1>
-          <p style={{ color: "var(--text-muted)" }}>
-            Diligencia tu solicitud en minutos y recibe respuesta inmediata.
-          </p>
-        </div>
+        <SolicitarHero />
+
+        {errorEnvio && (
+          <div className="catalog-alerta-error" style={{ maxWidth: "40rem", margin: "0 auto 1.5rem" }}>
+            <p><strong>Error:</strong> {errorEnvio}</p>
+          </div>
+        )}
 
         {solicitudEnviada ? (
-          <SolicitudExito
-            ultimaSolicitud={solicitudEnviada}
-            onNuevaSolicitud={() => setSolicitudEnviada(null)}
-          />
+          <SolicitudExito ultimaSolicitud={solicitudEnviada} onNuevaSolicitud={() => setSolicitudEnviada(null)} />
         ) : (
           <div className="solicitud-layout">
             <SolicitudFormulario
@@ -130,6 +95,7 @@ function Solicitar() {
               productoActual={productoActual}
               alCambiar={manejarCambio}
               alEnviar={manejarEnvio}
+              enviando={enviando}
             />
             <SolicitudResumen
               producto={productoActual}

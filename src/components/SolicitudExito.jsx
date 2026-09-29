@@ -34,8 +34,22 @@ function SolicitudExito({ ultimaSolicitud, onNuevaSolicitud }) {
           fontSize: "0.85rem",
         }}
       >
+        <div style={{ marginBottom: "0.4rem" }}>
+          <strong>ID en Firestore:</strong>{" "}
+          <code
+            style={{
+              backgroundColor: "var(--primary-container)",
+              color: "var(--on-primary-container)",
+              padding: "2px 6px",
+              borderRadius: "4px",
+              fontWeight: 700,
+            }}
+          >
+            {ultimaSolicitud.idFirestore || ultimaSolicitud.id}
+          </code>
+        </div>
         <div>
-          <strong>Radicado:</strong> {ultimaSolicitud.idRadicado}
+          <strong>Radicado Interno:</strong> {ultimaSolicitud.idRadicado}
         </div>
         <div>
           <strong>Titular:</strong> {ultimaSolicitud.nombre}

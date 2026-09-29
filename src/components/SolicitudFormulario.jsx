@@ -8,6 +8,7 @@ function SolicitudFormulario({
   productoActual,
   alCambiar,
   alEnviar,
+  enviando,
 }) {
   return (
     <form onSubmit={alEnviar} className="form-card" noValidate>
@@ -151,10 +152,11 @@ function SolicitudFormulario({
 
       <button
         type="submit"
+        disabled={enviando}
         className="btn btn-primary btn-block"
-        style={{ marginTop: "1rem" }}
+        style={{ marginTop: "1rem", opacity: enviando ? 0.7 : 1 }}
       >
-        Radicar Solicitud Digital
+        {enviando ? "Radicando solicitud en la nube..." : "Radicar Solicitud Digital"}
       </button>
     </form>
   );
